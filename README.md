@@ -1,4 +1,4 @@
-Berikut link aplikasi pws: http://naila-shakira-eshop.pbp.cs.ui.ac.id/
+Berikut link aplikasi pws: http://naila-shakira-eshop.pbp.cs.ui.ac.id/ (belum update, masih error)
 
 Berikut step-by-step pengimplementasian checklistnya:
 1. Membuat direktori baru pada lokal dengan nama e-commerce
@@ -39,6 +39,8 @@ User Request --(HTTP Request)--> urls.py --(Route to a certain view based on the
                                                                                                 ^
                                                                                                 |
                                                                                             filename.html
+
+*note = panah atas dan bawah mengarah pada views.py
 
 Ada beberapa fungsi git dalam pengembangan perangkat lunak:
 1. Memungkinkan untuk dapat berkolaborasi atau bekerja bersama pada proyek yang sama tanpa mengganggu pekerjaan satu sama lain
