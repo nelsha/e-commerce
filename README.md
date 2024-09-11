@@ -35,7 +35,7 @@ Bagan berisi request client ke web aplikasi berbasis Django beserta responnya (s
                                                                                             (read data)
                                                                                                 |
                                                                                                 v
-User Request --(HTTP Request)--> urls.py --(Route to a certain view based on the request)--> views.py --(HTTP Response)--> User
+User Request --(HTTP Request)--> browser --> urls.py --(Route to a certain view based on the request)--> views.py --(HTTP Response)--> browser --> User
                                                                                                 ^
                                                                                                 |
                                                                                             filename.html
