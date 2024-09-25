@@ -1,5 +1,6 @@
-Berikut link aplikasi pws: http://naila-shakira-eshop.pbp.cs.ui.ac.id/ (belum update, masih error)
+Berikut link aplikasi pws: http://naila-shakira-gothlyrealm.pbp.cs.ui.ac.id/
 
+## Tugas 2
 Berikut step-by-step pengimplementasian checklistnya:
 1. Membuat direktori baru pada lokal dengan nama e-commerce
 2. Menyalakan virtual environment
@@ -47,6 +48,8 @@ Ada beberapa fungsi git dalam pengembangan perangkat lunak:
 2. Git menyimpan salinan proyek hingga mudah untuk memulihkan versi sebelumnya jika terjadi kesalahan atau kehilangan data
 3. Perubahan kode yang tercatat (commit messages) memungkinkan untuk dapat dengan cepat memperbarui kode di server
 
+## Tugas 3
+
 Django digunakan sebagai permulaan pembelajaran pengembangan perangkat lunak karena penggunaan MVT (Model View Template) yang memisahkan logika aplikasi, tampilan dan struktur data. Hal ini membuat lebih mudah untuk memelihara kode dan project menjadi lebih efektif dan efisien. 
 
 Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena berperan sebagai perantara antara kode Python (object) dan tabel dalam database relational. ORM memungkinkan untuk berinteraksi dengan database tanpa harus menulis SQL secara langsung. 
@@ -89,3 +92,58 @@ Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari has
 ![alt text](image-3.png)
 4. JSON by ID
 ![alt text](image-2.png)
+
+## Tugas 4
+
+Apa perbedaan antara HttpResponseRedirect() dan redirect()?
+    HttpResponseRedirect() dapat mengatur status HTTP, konten respons dan lainnya hingga biasanya digunakan saat memerlukan kustomisasi spesifik. redirect() sudah secara otomatis mengatur status HTTP yang sesuai dan merupakan suatu shortcut yang lebih user-friendly dibanding fungsi sebelumnya.
+
+Jelaskan cara kerja penghubungan model Product dengan User!
+    Menghubungkan model Product dengan User ini dicapai dengan membuat suatu relasi antara produk yang disimpan dalam database dengan pengguna yang telah terdaftar. Program juga menghubungkan model tersebut menggunakan ForeignKey dan dipastikan tiap produk berhubungan dengan suatu akun.
+
+Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+    Autentikasi merupakan proses verifikasi identitas pengguna dimana program memastikan bahwa pengguna yang mencoba masuk ke dalam sistem adalah pengguna yang sah. Sedangkan authorized untuk nentuin apa yang diizinkan dan tidak bagi pengguna yang telah diverifikasi.
+
+Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+    Django selalu menyimpan informasi seseorang yang sedang masuk. Cookie dapat dimanfaatkan sebagai arana dalam menyimpan referensi pengguna dan tidak semua cookie aman untuk digunakan.
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+- Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar.
+1. Import UserCreationForm dan messages pada views.py di main untuk pendaftaran pengguna.
+2. Menambahkan fungsi register yang akan membuat akun pengguna saat user submit form.
+3. Membuat register.html pada main/templates untuk membuat tampilan halaman register.
+4. Import function dan masukkan path url register ke urlpatterns di urls.py.
+5. Import authenticate, login dan AuthenticationForm di views.py untuk melakukan autentikasi dan login.
+6. Menambahkan fungsi login_user untuk mengautentikasi pengguna yang merequest masuk.
+7. Membuat login.html pada main/templates untuk membuat tampilan halaman login.
+8. Import function dan masukkan path url login ke urlpatterns di urls.py.
+9. Import logout di views.py lalu menambahkan fungsi logout_user.
+10. Menambahkan button logout dipaling bawah pada main.html.
+11. Import function dan masukkan path url logout ke urlpatterns di urls.py.
+12. Import login_required pada views.py dan menambahkan dekorator tersebut diatas fungsi show_main agar hanya pengguna yang sudah diautentikasi/login saja yang bisa akses.
+
+- Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.
+1. Import HttpResponseRedirect, reverse dan datetime di views.py.
+2. Mengubah kode pada function login_user dimana saat form valid akan membuat cookie untuk last_login.
+3. Menambahkan context pada show_main yaitu last_login.
+4. Tambahkan delete cookie last_login pada fungsi logout_user.
+5. Menambahkan kata sapaan terhadap username yang sedang login dan data last_login pada main.html.
+
+- Menghubungkan model Product dengan User.
+1. Import User pada models.py lalu inisialisasi user pada Product menggunakan ForeignKey yang akan menghubungkan tiap produk dengan suatu user.
+2. Mengubah function add_product pada views.py agar tidak langsung menyimpan objek ke database, jadi harus diinisialisasi kepemilikan dulu.
+3. Mengubah value products pada fungsi show_main menjadi filter sesuai dengan user sekarang.
+4. Melakukan migrasi model dan menetapkan isi produk sekarang dimiliki oleh user ID 1.
+5. Tambahkan import os dan menambahkan mengenai production dan debug di berkas settings.py.
+
+- Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
+1. Menyalakan virtual environment lalu masuk ke halaman web.
+2. Membuat akun baru dengan klik "Register Now".
+3. Mengisi semua field sesuai dengan ketentuan.
+4. Login pada akun yang telah dibuat.
+5. Menambahkan produk baru dengan klik button "Add New Product" dan mengisi semua field lalu submit formnya.
+6. Lakukan penambahan produk hingga terdapat tiga produk pada tabel lalu klik button "Logout" untuk keluar.
+7. Ulangi keseluruhan langkah sekali lagi.
+Akun 1: ![alt text](image-4.png)
+Akun 2: ![alt text](image-5.png)

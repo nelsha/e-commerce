@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 def validate_rating(value):
@@ -7,6 +8,7 @@ def validate_rating(value):
         raise ValidationError('Rating cannot be more than 5.0')
 
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     price = models.IntegerField()
@@ -17,8 +19,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-class Person(models.Model):
-    name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    is_happy = models.BooleanField()
