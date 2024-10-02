@@ -5,28 +5,46 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-  <h1>Login</h1>
+<div class="min-h-screen flex items-center justify-center p-6">
+  <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl w-full">
+    <!-- Kiri: Bagian Deskripsi -->
+    <div>
+      <h2 class="text-4xl font-extrabold text-white gothic-title">Welcome Back to the Darkness</h2>
+      <p class="text-sm mt-6 text-white">Login to access exclusive gothic features and immerse yourself in the mystical journey.</p>
+      <p class="text-sm mt-6 text-white">Don't have an account? <a href="{% url 'main:register' %}" class="text-white font-semibold underline ml-1">Register now</a></p>
+    </div>
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+    <!-- Kanan: Form Login -->
+    <form method="POST" action="" class="bg-black rounded-xl px-6 py-8 space-y-6 max-w-md w-full shadow-lg border border-dark-maroon mx-auto md:justify-self-center">
+      <h3 class="text-3xl font-extrabold mb-6 text-dark-maroon">Login</h3>
+      
+      {% csrf_token %}
+      <div class="space-y-6">
+        <!-- Input untuk Username -->
+        <div>
+          <input type="text" name="username" placeholder="Username" class="w-full bg-[#3b2f36] text-[#d8c3a5] rounded-md py-3 px-4 focus:bg-[#2e2328] focus:border-[#7a3b46] focus:outline-none" required />
+        </div>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
+        <!-- Input untuk Password -->
+        <div>
+          <input type="password" name="password" placeholder="Password" class="w-full bg-[#3b2f36] text-[#d8c3a5] rounded-md py-3 px-4 focus:bg-[#2e2328] focus:border-[#7a3b46] focus:outline-none" required />
+        </div>
+
+        <!-- Tombol Login -->
+        <div>
+          <input class="w-full py-3 px-6 text-sm font-semibold rounded-md text-white bg-[#7a3b46] hover:bg-[#5f2a36] shadow-md cursor-pointer" type="submit" value="Login" />
+        </div>
+      </div>
+    </form>
+
+    <!-- Pesan Error -->
+    {% if messages %}
+    <ul class="text-white mt-4">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
 </div>
-
 {% endblock content %}

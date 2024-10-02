@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=UnifrakturMaguntia&display=swap');
+
+body {
+    font-family: 'Cinzel', serif; 
+    background: linear-gradient(to right, #000000, #2e1f27); 
+    color: #d8c3a5;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.grid {
+    display: grid;
+    gap: 2.5rem;
+}
+
+.md\\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+form {
+    background-color: #1c1c1c; 
+    border-radius: 0.75rem;
+    padding: 1.5rem 3rem;
+    width: 100%;
+    max-width: 28rem;
+    margin-left: auto;
+    border: 2px solid #4a2c33; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+}
+
+input {
+    background-color: #3b2f36; 
+    width: 100%;
+    padding: 0.875rem;
+    border-radius: 0.375rem;
+    border: none;
+    font-size: 0.875rem;
+    color: #d8c3a5; 
+    outline: none;
+}
+
+input:focus {
+    background-color: #2e2328; 
+    border: 2px solid #7a3b46; 
+}
+
+/* Placeholder styling untuk input box */
+input::placeholder {
+    color: #d8c3a5; 
+    opacity: 0.7;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f5f5f5; 
+    background-color: #7a3b46; 
+    border-radius: 0.375rem;
+    border: 1px solid #7a3b46;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+button:hover {
+    background-color: #5f2a36; 
+    box-shadow: 0 0 15px #7a3b46, inset 0 0 5px #7a3b46;
+    transition: 0.3s ease-in-out;
+}
+
+.space-x-6 > * {
+    margin-left: 1.5rem;
+}
+
+/* Gothic font styling untuk heading */
+h2, h3 {
+    font-family: 'UnifrakturMaguntia', cursive; 
+    color: #e0a899; 
+    text-shadow: 2px 2px 4px #000000; 
+}
+
+a {
+    color: #7a3b46;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #e0a899;
+    text-shadow: 1px 1px 3px #000000;
+}
+
+/* Mengubah warna latar belakang, teks, dan border input text */
+.custom-input {
+    background-color: #2b2b2b; 
+    color: #f0f0f0;
+    border: 1px solid #4b4b4b;
+    padding: 10px; 
+    border-radius: 5px; 
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+/* Mengubah warna placeholder */
+.custom-input::placeholder {
+    color: #a0a0a0; 
+    opacity: 0.8; 
+}
+
+/* Ketika field di-klik (focus) */
+.custom-input:focus {
+    outline: none; 
+    border-color: #ff4500; 
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.7); /* Efek glow saat focus */
+}
+
+/* Style ketika field dalam mode disabled */
+.custom-input:disabled {
+    background-color: #444444; 
+    color: #999999; 
+    border: 1px solid #666666; 
+}
+
+.inline-badge-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 1.5rem; 
+}
+
+.badge {
+    background: #7a3b46; /* Dark maroon */
+    color: #e0a899; /* Cream */
+    padding: 10px 20px;
+    border-radius: 20px; /* Rounded edges */
+    font-family: 'UnifrakturMaguntia', cursive; /* Gothic font */
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.separator {
+    margin: 0 10px; /* Space around separator */
+    color: #d8c3a5; /* Cream color */
+    font-size: 1.5rem; /* Same size as badges */
+}
+
+.badge-class {
+    background: #4a2c33; /* Darker maroon */
+    color: #d8c3a5; /* Light cream */
+    padding: 10px 20px;
+    border-radius: 20px; /* Rounded edges */
+    font-family: 'Cinzel', serif; /* Classic font */
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+

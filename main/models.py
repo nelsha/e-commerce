@@ -16,6 +16,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     category = models.CharField(max_length=50)
     rating = models.DecimalField(max_digits=2, decimal_places=1, validators=[validate_rating])
+    image_url = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -147,3 +147,72 @@ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-b
 7. Ulangi keseluruhan langkah sekali lagi.
 Akun 1: ![alt text](image-4.png)
 Akun 2: ![alt text](image-5.png)
+
+# Tugas 5
+
+Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+1. !important rules
+    Tag !important akan menimpa rule lain karena merupakan prioritas tertinggi.
+2. Inline Styles
+3. ID
+4. Clases, pseudo-classes, attribute selectors
+5. Elements and pseudo-elements
+6. Urutan dalam CSS Stylesheet
+    Jika ada dua CSS rule yang didefinisikan dengan prioritas yang sama maka CSS rule yang diaplikasikan adalah yang terakhir didefinisikan.
+
+Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+    Responsive design merupakan konsep yang sangat penting dalam pengembangan aplikasi web karena konsep ini memastikan bahwa suatu aplikasi dapat beradaptasi sesuai dengan perangkat dan ukuran layar yang user gunakan untuk mengakses aplikasi tersebut. Hal ini membuat pengalaman pengguna akan menjadi lebih optimal.
+
+Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+- Margin memberi jarak antara elemen (seperti box) dengan elemen lain di sekitarnya. Margin tidak termasuk dalam ukuran elemen itu. Cara implementasi:
+.box {
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-buttom: 5px;
+  margin-left: 5px;
+}
+- Border merupakan garis yang mengelilingi elemen setelah padding dan sebelum margin. Border seperti memberi bingkai pada elemen. Cara implementasi:
+.box{
+  border: 5px dashed blue;
+}
+- Padding memberi jarak antara konten/teks dengan bordernya. Cara implementasi:
+.box{
+  padding: 3px 5px;
+}
+
+Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+- Flexbox mengatur elemen pada sumbu tunggal yaitu horizontal atau vertikal. hal ini dapat mempermudah dalam penyusunan elemen yang lebih fleksibel dalam satu baris atau kolom dimana elemen2 dapat secara otomatis menyesuaikan ukuran dan jarak antar elemen.
+- Grid Layout mengatur tata letak secara dua dimensi hingga dapat mengatur secara horizontal dan vertikal. Hal ini membuat pengaturan lebih kompleks hingga dapat menempatkan elemen dengan lebih spesifik.
+
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+- Implementasi fungsi untuk menghapus dan mengedit product.
+1. Import reverse dan HttpResponseRedirect
+2. Membuat fungsi edit_produk pada views.py 
+3. Membuat edit_product.html 
+4. Import edit_product di urls.py lalu tambahkan path urlnya ke urlpatterns
+5. Menambahkan button edit produk pada tabel di main.html
+6. Membuat fungsi delete_product pada views.py
+7. Import delete_product tersebut di urls.py lalu menambahkan path urlnya ke urlspatterns
+8. Menambahkan button delete_product pada tabel di main.html
+
+- Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+1. Menambah tailwind ke aplikasi di base.html
+2. Menambahkan middleware WhiteNoise pada settings.py
+3. Mengkonfigurasi static root, staticfiles dirs. dan static url pada settings.py
+4. Membuat file static/css lalu menambahkan file global.css
+5. Mengisi file global.css dengan style css yang akan diimplementasikan di penjuru aplikasi
+6. Menghubungkan global.css dan tailwind ke base.html
+7. Menambahkan styling css pada tiap halaman login, register dan add_product
+
+- Kustomisasi halaman daftar product menjadi lebih menarik dan responsive.
+- Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+1. Membuat file product_card untuk menampilkan daftar product
+2. Membuat direktori image dalam static dan menaruh gambar yang dibutuhkan (skull untuk menyampaikan tidak ada produk saat ini dan bintang2 untuk rating)
+3. Isi product_card dengan logika dan styling css lalu menambahkan button edit dan delete product pada masing2 card product 
+
+- Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+1. Membuat berkas navbar.html 
+2. Memodifikasi navbar berdasarkan template dari asdos dan template dari google
+3. Menambahkan navbar pada main.html, add_product.html dan edit_product.html
+

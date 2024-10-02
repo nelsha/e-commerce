@@ -1,61 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<h1>Gothly Realm</h1>
+{% include 'navbar.html' %}
 
-<h5>Name: </h5>
-<p>{{ name }}<p>
-<h5>Class: </h5>
-<p>{{ class }}<p>
+<h1 class="text-center gothic-title">Gothly Realm</h1>
 
-<h2>Welcome, {{ username }}!</h2>
+<h2 class="text-center">Welcome, {{ username }}!</h2>
 
-{% if not products %}
-<p>Belum ada data produk pada Gothly Realm.</p>
-{% else %}
-<table>
-    <tr>
-    <th>Product Name</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Stock</th>
-    <th>Category</th>
-    <th>Rating</th>
-    </tr>
+<div class="container mx-auto py-12">
+    <div class="inline-badge-container">
+        <span class="badge">{{ name }}</span>
+        <span class="separator">|</span>
+        <span class="badge-class">{{ class }}</span>
+    </div>
 
-    {% for product in products %}
-    <tr>
-    <td>{{product.name}}</td>
-    <td>{{product.price}}</td>
-    <td>{{product.description}}</td>
-    <td>{{product.stock}}</td>
-    <td>{{product.category}}</td>
-    <td>{{product.rating}}</td>
-    <td>
-        <a href="{% url 'main:edit_product' product.pk %}">
-            <button>
-                Edit
-            </button>
+    <div class="flex rounded-md items-center py-2 px-4 w-fit" style="background-color: #2e2328;">
+        <h1 class="text-white text-center">Last Login: {{last_login}}</h1>
+      </div>
+      
+    <div class="flex justify-end mb-6">
+        <a href="{% url 'main:add_product' %}" class="text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" style="background-color: #7a3b46;">
+            Add New Product
         </a>
-    </td>
-    <td>
-        <a href="{% url 'main:delete_product' product.pk %}">
-            <button>
-                Delete
-            </button>
-        </a>
-    </td>
-    </tr>
-    {% endfor %}
-</table>
-{% endif %}
+    </div>
+      
 
-<br />
-
-<a href="{% url 'main:add_product' %}">
-    <button>Add New Product</button>
-</a>
-<a href="{% url 'main:logout' %}">
-    <button>Logout</button>
-  </a>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+    {% if not products %}
+    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+        <img src="{% static 'image/skull.png' %}" alt="Skull" class="w-32 h-32 mb-4"/>
+        <p class="text-center gothic-text">Belum ada data produk pada Gothly Realm.</p>
+    </div>
+        
+    {% else %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for product in products %}
+                {% include 'product_card.html' with product=product %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
 {% endblock content %}
