@@ -75,8 +75,8 @@
               <input type="number" id="rating" name="rating" min="0.0" max="5.0" step="0.1" class="mt-1 block w-full custom-input" required>
             </div>
             <div class="mb-4">
-              <label for="iamge_url" class="block text-sm font-medium text-gray-300">Image URL</label>
-              <input type="text" id="iamge_url" name="iamge_url" class="mt-1 block w-full custom-input" placeholder="Enter your product image URL" required>
+              <label for="image_url" class="block text-sm font-medium text-gray-300">Image URL</label>
+              <input type="text" id="image_url" name="image_url" class="mt-1 block w-full custom-input" placeholder="Enter your product image URL" required>
             </div>
           </form>
         </div>
@@ -124,20 +124,33 @@
         `;
     }
     else {
-        classNameString = "columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full"
+        classNameString = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6"
         products.forEach((item) => {
             const name = DOMPurify.sanitize(item.fields.name);
             const description = DOMPurify.sanitize(item.fields.description);
             const category = DOMPurify.sanitize(item.fields.category);
             const image_url = DOMPurify.sanitize(item.fields.image_url);
+            const rating = parseFloat(item.fields.rating);
+
+            // Check if image_url exists and is valid
+            const productImage = image_url ? image_url : "{% static 'image/no-image.png' %}";
+
+            // Generate the star rating based on the rating value
+            let starRatingHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (rating >= i) {
+                    starRatingHTML += `<img src="{% static 'image/star-filled.png' %}" alt="star" class="w-5 h-5">`;
+                } else if (rating >= i - 0.5) {
+                    starRatingHTML += `<img src="{% static 'image/star-half-filled.png' %}" alt="half star" class="w-5 h-5">`;
+                } else {
+                    starRatingHTML += `<img src="{% static 'image/star-empty.png' %}" alt="empty star" class="w-5 h-5">`;
+                }
+            }
+
             htmlString += `
             <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
                 <!-- Product Image -->
-                {% if product.image_url %}
-                    <img src="${image_url}" alt="${name}" class="w-full h-60 object-cover rounded-lg">
-                {% else %}
-                    <img src="{% static 'image/no-image.png' %}" alt="${name}" class="w-full h-48 object-cover rounded-lg">
-                {% endif %}
+                <img src="${productImage}" alt="${name}" class="w-full h-60 object-cover rounded-lg">
 
                 <!-- Product Information -->
                 <div class="mt-4 gothic-text text-white">
@@ -148,17 +161,7 @@
 
                     <!-- Rating -->
                     <div class="flex mt-2">
-                        {% with product.rating|floatformat:"1" as rating %}
-                            {% for i in "12345" %}
-                                {% if rating >= i %}
-                                    <img src="{% static 'image/star-filled.png' %}" alt="star" class="w-5 h-5">
-                                {% elif i|add:"0.5" == rating %}
-                                    <img src="{% static 'image/star-half-filled.png' %}" alt="half star" class="w-5 h-5">
-                                {% else %}
-                                    <img src="{% static 'image/star-empty.png' %}" alt="empty star" class="w-5 h-5">
-                                {% endif %}
-                            {% endfor %}
-                        {% endwith %}
+                        ${starRatingHTML}  <!-- Render stars here -->
                     </div>
                 </div>
 
