@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta %}
+<title>Gothly Realm</title>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+{% endblock meta %}
 {% block content %}
 {% include 'navbar.html' %}
 
@@ -23,21 +27,194 @@
         <a href="{% url 'main:add_product' %}" class="text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" style="background-color: #7a3b46;">
             Add New Product
         </a>
+        <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" style="background-color: #7a3b46;" onclick="showModal();">
+            Add New Product by AJAX
+        </button>
     </div>
       
-
-    {% if not products %}
-    <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
-        <img src="{% static 'image/skull.png' %}" alt="Skull" class="w-32 h-32 mb-4"/>
-        <p class="text-center gothic-text">Belum ada data produk pada Gothly Realm.</p>
-    </div>
-        
-    {% else %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {% for product in products %}
-                {% include 'product_card.html' with product=product %}
-            {% endfor %}
+    <div id="product_cards"></div>
+    <div id="crudModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+      <div id="crudModalContent" class="relative bg-gray-900 rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-700 rounded-t">
+          <h3 class="text-xl font-semibold text-e0a899 font-UnifrakturMaguntia">
+            Add New Product
+          </h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-700 hover:text-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
         </div>
-    {% endif %}
+        <!-- Modal body -->
+        <div class="px-6 py-4 space-y-6 form-style">
+          <form id="productForm">
+            <div class="mb-4">
+              <label for="name" class="block text-sm font-medium text-gray-300">Product Name</label>
+              <input type="text" id="name" name="name" class="mt-1 block w-full custom-input" placeholder="Enter your product name" required>
+            </div>
+            <div class="mb-4">
+              <label for="price" class="block text-sm font-medium text-gray-300">Price</label>
+              <input type="number" id="price" name="price" min="1" max="1000000000000000000000000000000000000000000000" class="mt-1 block w-full custom-input" placeholder="Enter your product price" required>
+            </div>
+            <div class="mb-4">
+              <label for="description" class="block text-sm font-medium text-gray-300">Description</label>
+              <textarea id="description" name="description" rows="3" class="mt-1 block w-full h-52 resize-none custom-input" placeholder="Describe your product" required></textarea>
+            </div>
+            <div class="mb-4">
+              <label for="stock" class="block text-sm font-medium text-gray-300">Stock</label>
+              <input type="number" id="stock" name="stock" min="0" max="1000000000000000000000000000000000000000000000" class="mt-1 block w-full custom-input" placeholder="Enter your product stock" required>
+            </div>
+            <div class="mb-4">
+              <label for="category" class="block text-sm font-medium text-gray-300">Category</label>
+              <input type="text" id="category" name="category" class="mt-1 block w-full custom-input" placeholder="Enter your product category" required>
+            </div>
+            <div class="mb-4">
+              <label for="rating" class="block text-sm font-medium text-gray-300">Rating (0.0-5.0)</label>
+              <input type="number" id="rating" name="rating" min="0.0" max="5.0" step="0.1" class="mt-1 block w-full custom-input" required>
+            </div>
+            <div class="mb-4">
+              <label for="iamge_url" class="block text-sm font-medium text-gray-300">Image URL</label>
+              <input type="text" id="iamge_url" name="iamge_url" class="mt-1 block w-full custom-input" placeholder="Enter your product image URL" required>
+            </div>
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-700 rounded-b justify-center md:justify-end">
+          <button type="button" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
+          <button type="submit" id="submitProduct" form="productForm" class="bg-indigo-800 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">Save</button>
+        </div>
+      </div>
+    </div>    
 </div>
+
+<script>
+    function addProduct() {
+      fetch("{% url 'main:add_product_ajax' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#productForm')),
+      })
+      .then(response => refreshProducts())
+  
+      document.getElementById("productForm").reset(); 
+      document.querySelector("[data-modal-toggle='crudModal']").click();
+  
+      return false;
+    }
+
+    async function getProducts(){
+        return fetch("{% url 'main:show_json' %}").then((res) => res.json())
+    }
+
+    async function refreshProducts() {
+    document.getElementById("product_cards").innerHTML = "";
+    document.getElementById("product_cards").className = "";
+    const products = await getProducts();
+    let htmlString = "";
+    let classNameString = "";
+
+    if (products.length === 0) {
+        classNameString = "flex flex-col items-center justify-center min-h-[24rem] p-6";
+        htmlString = `
+            <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+                <img src="{% static 'image/skull.png' %}" alt="Skull" class="w-32 h-32 mb-4"/>
+                <p class="text-center text-gray-600 mt-4">Belum ada data produk pada Gothly Realm.</p>
+            </div>
+        `;
+    }
+    else {
+        classNameString = "columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full"
+        products.forEach((item) => {
+            const name = DOMPurify.sanitize(item.fields.name);
+            const description = DOMPurify.sanitize(item.fields.description);
+            const category = DOMPurify.sanitize(item.fields.category);
+            const image_url = DOMPurify.sanitize(item.fields.image_url);
+            htmlString += `
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <!-- Product Image -->
+                {% if product.image_url %}
+                    <img src="${image_url}" alt="${name}" class="w-full h-60 object-cover rounded-lg">
+                {% else %}
+                    <img src="{% static 'image/no-image.png' %}" alt="${name}" class="w-full h-48 object-cover rounded-lg">
+                {% endif %}
+
+                <!-- Product Information -->
+                <div class="mt-4 gothic-text text-white">
+                    <h2 class="text-xl font-semibold">${name}</h2>
+                    <p class="mt-2">${description}</p>
+                    <p class="mt-2 text-lg font-bold">Rp${item.fields.price}</p>
+                    <p class="mt-1">Stock: ${item.fields.stock}</p>
+
+                    <!-- Rating -->
+                    <div class="flex mt-2">
+                        {% with product.rating|floatformat:"1" as rating %}
+                            {% for i in "12345" %}
+                                {% if rating >= i %}
+                                    <img src="{% static 'image/star-filled.png' %}" alt="star" class="w-5 h-5">
+                                {% elif i|add:"0.5" == rating %}
+                                    <img src="{% static 'image/star-half-filled.png' %}" alt="half star" class="w-5 h-5">
+                                {% else %}
+                                    <img src="{% static 'image/star-empty.png' %}" alt="empty star" class="w-5 h-5">
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                </div>
+
+                <!-- Edit and Delete Icons -->
+                <div class="flex justify-between mt-4">
+                    <a href="/edit-product/${item.pk}" class="text-dark-maroon hover:text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </a>
+                    <a href="/delete/${item.pk}" class="text-dark-maroon hover:text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            `;
+        });
+    }
+    document.getElementById("product_cards").className = classNameString;
+    document.getElementById("product_cards").innerHTML = htmlString;
+}
+refreshProducts();
+
+    const modal = document.getElementById('crudModal');
+    const modalContent = document.getElementById('crudModalContent');
+
+    function showModal() {
+        const modal = document.getElementById('crudModal');
+        const modalContent = document.getElementById('crudModalContent');
+
+        modal.classList.remove('hidden'); 
+        setTimeout(() => {
+          modalContent.classList.remove('opacity-0', 'scale-95');
+          modalContent.classList.add('opacity-100', 'scale-100');
+        }, 50); 
+    }
+
+    function hideModal() {
+        const modal = document.getElementById('crudModal');
+        const modalContent = document.getElementById('crudModalContent');
+
+        modalContent.classList.remove('opacity-100', 'scale-100');
+        modalContent.classList.add('opacity-0', 'scale-95');
+
+        setTimeout(() => {
+          modal.classList.add('hidden');
+        }, 150); 
+    }
+
+    document.getElementById("cancelButton").addEventListener("click", hideModal);
+    document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+    document.getElementById("productForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        addProduct();
+  })
+</script>
 {% endblock content %}
