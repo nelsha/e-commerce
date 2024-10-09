@@ -216,3 +216,32 @@ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-b
 2. Memodifikasi navbar berdasarkan template dari asdos dan template dari google
 3. Menambahkan navbar pada main.html, add_product.html dan edit_product.html
 
+# Tugas 6
+Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+    JavaScript dapat memungkinkan aplikasi menjadi lebih interaktif, dinamis dan responsif. JavaScript memungkinkan developer untuk mengubah tampilan dan fungsi dari elemen HTML secara langsung, dapat berjalan di berbagai platform dan perangkat, elemen UI menjadi lebih interaktif dan penggunaan AJAX. JavaScript juga berjalan pada browser user hingga memungkinkan manipulasi DOM secara langsung dan cepat (aplikasi dapat merespons tindakan user secara instan) yang dapat mengurangi beban server.
+
+Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+    Penggunaan await saat menggunaan fetch() adalah untuk menunggu hingga permintaan HTTP yang dijalankan fetch() selesai dan nilainya tersedia, baru kemudian akan melanjutkan mengeksekusi baris kode berikutnya. Jika tidak menggunakan await, fetch() akan segera mengembalikan nilai tanpa menunggu permintaan HTTP selesai hingga nilai tersebut bukanlah data yang sebenarnya. Hal ini berarti kode akan melanjutkan eksekusi ke baris kode selanjutnya sebelum hasil permintaan sebenarnya tersedia, yang dapat menyebabkan masalah saat mencoba mengakses data tersebut.
+
+Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+    Dekorator csrf_exempt digunakan pada view untuk AJAX POST karena Django secara default menerapkan CSRF protection dimana CSRF (Cross-Site Request Forgery) adalah serangan dimana penyerang akan mengelabui user agar mengirimkan permintaan yang tidak sah ke server atas nama mereka. Untuk AJAX POST, perlu dilakukan pengecualian perlindungan CSRF karena permintaan POST mungkin akan ditolak oleh server karena tidak menyertakan token CSRF yang valid.
+
+Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+    Pembersihan data input pengguna tidak hanya dilakukan di frontend, tapi juga di backend karena alasan keamanan. Hal ini dikarenakan kita dapat menvalidasi bahwa semua data yang masuk ke sistem sudah sesuai. Pembersihan di backend juga dapat mencegah potensi serangan yang dapat terjadi jika data dibersihkan di luar.
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+PENGGUNAAN AJAX GET POST
+1. Import csrf_exempt dan require_POST lalu buat fungsi add_product_ajax yang akan menambahkan produk dengan AJAX serta fungsi tersebut dibatasi oleh decorators yang baru pada views.py
+2. Import fungsi tadi dan menambahkan pathnya ke url patterns di urls.py
+3. Menambahkan filter pada fungsi show_json dan show_xml pada views.py
+4. Menghapus blok kode conditionals untuk menampilkan product di main.html
+5. Menambah blok kode script yang berisi fungsi getProduct yang akan mengambil produk dengan json dan fungsi refreshProduct yang akan merefresh data secara asinkronus dimana berisi kode dari product card
+6. Membuat modal untuk add product dengan AJAX
+7. Menambahkan fungsi JavaScript seperti showModal dan hideModal agar modal dapat berfungsi
+8. Menambahkan button Add Product dengan AJAX
+9. Membuat fungsi addProduct pada script dan berikan event listener
+10. Menambahkan strip tags untuk membersihkan data baru pada data non-number di fungsi add_product_ajax (views.py)
+11. Menambahkan method clean dari tiap2 data pada class ProductForm di forms.py
+12. Menambahkan blok kode DOMPurify di block meta pada main.html
+13. Menambahkan kode sanitize dari tiap2 data pada refreshProducts
